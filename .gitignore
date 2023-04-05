@@ -6,6 +6,8 @@ __pycache__/
 # C extensions
 *.so
 
+inD-dataset-v1.0.zip
+
 # Distribution / packaging
 .Python
 build/
