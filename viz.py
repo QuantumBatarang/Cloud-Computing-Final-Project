@@ -66,7 +66,6 @@ def showAll(location, output):
                 col = 'yellow'
             ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=1.0)
 
-    ax.imshow(img)
 
     filepath = output+'/all_vehicles_0'+locid+'.png' 
 
@@ -132,7 +131,6 @@ def showCars(location, output):
             if(vehicle == 'car'):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
 
-    ax.imshow(img)
 
     filepath = output+'/cars_0'+locid+'.png'
 
@@ -198,7 +196,6 @@ def showBicycles(location, output):
             if(vehicle == 'bicycle'):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
 
-    ax.imshow(img)
     filepath = output+'/bicycle_0'+locid+'.png'
 
     fig.savefig(filepath)
@@ -264,7 +261,6 @@ def showPedestrian(location, output):
             if(vehicle == 'pedestrian'):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
 
-    ax.imshow(img)
     filepath = output+'/pedestrian_0'+locid+'.png'
 
     fig.savefig(filepath)
@@ -322,7 +318,6 @@ def showBusesOnly(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
                 
 
-    ax.imshow(img)
     filepath = output+'/buses_0'+locid+'.png'
 
     fig.savefig(filepath)
@@ -380,7 +375,6 @@ def showTrucksOnly(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
                 
 
-    ax.imshow(img)
     filepath = output+'/trucks_0'+locid+'.png'
 
     fig.savefig(filepath)
@@ -438,7 +432,6 @@ def showSUV(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
                 
 
-    ax.imshow(img)
     filepath = output+'/SUVs_0'+locid+'.png'
 
     fig.savefig(filepath)
@@ -496,7 +489,6 @@ def showSedan(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
                 
 
-    ax.imshow(img)
     filepath = output+'/Sedans_0'+locid+'.png'
 
     fig.savefig(filepath)
