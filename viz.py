@@ -5,6 +5,7 @@ import sys, getopt
 import argparse
 import logging
 import re
+from io import BytesIO
 
 def showAll(location, output):
 
@@ -35,7 +36,7 @@ def showAll(location, output):
         end = 32
 
         
-    img = plt.imread('inD-dataset-v1.0/data/'+ picture + '_background.png')
+    img = plt.imread('./inD-dataset-v1.0/data/'+ picture + '_background.png')
     fig, ax = plt.subplots()
     
     for i in range(start, end+1):
@@ -45,9 +46,9 @@ def showAll(location, output):
         else:
             suff = str(i)
 
-        recMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
-        trackInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
-        trackMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
+        recMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
+        trackInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
+        trackMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
         
         
 
@@ -67,9 +68,13 @@ def showAll(location, output):
             ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=1.0)
 
 
-    filepath = output+'/all_vehicles_0'+locid+'.png' 
-
-    fig.savefig(filepath)
+    # filepath = output+'/all_vehicles_0{}.png'.format(location)
+    buf = BytesIO()
+    ax.imshow(img)
+    # fig.savefig(filepath)
+    fig.savefig(buf, format='png')
+    buf.seek(0)
+    return buf.getvalue()
 
 def showCars(location, output):
     scale = 1
@@ -99,7 +104,7 @@ def showCars(location, output):
         end = 32
 
         
-    img = plt.imread('inD-dataset-v1.0/data/'+ picture + '_background.png')
+    img = plt.imread('./inD-dataset-v1.0/data/'+ picture + '_background.png')
     fig, ax = plt.subplots()
     
     for i in range(start, end+1):
@@ -109,11 +114,10 @@ def showCars(location, output):
         else:
             suff = str(i)
 
-        recMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
-        trackInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
-        trackMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
-        
-        
+        recMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
+        trackInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
+        trackMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')        
+        print(recMetaInfo)
 
         numTracks = recMetaInfo['numTracks'].loc[0]
 
@@ -121,7 +125,7 @@ def showCars(location, output):
             track = trackInfo.loc[trackInfo['trackId'] == j]
             # print(track.iloc[0]['recordingId'])
             vehicle = trackMetaInfo.iloc[j]['class']
-            col = 'blue'
+            col = 'yellow'
             if(vehicle == 'truck_bus'):
                 col = 'red'
             elif(vehicle == 'bicycle'):
@@ -132,9 +136,13 @@ def showCars(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
 
 
-    filepath = output+'/cars_0'+locid+'.png'
-
-    fig.savefig(filepath)
+    # filepath = output+'/cars_0{}.png'.format(location)
+    buf = BytesIO()
+    ax.imshow(img)
+    # fig.savefig(filepath)
+    fig.savefig(buf, format='png')
+    buf.seek(0)
+    return buf.getvalue()
 
 def showBicycles(location, output):
     scale = 1
@@ -164,7 +172,7 @@ def showBicycles(location, output):
         end = 32
 
         
-    img = plt.imread('inD-dataset-v1.0/data/'+ picture + '_background.png')
+    img = plt.imread('./inD-dataset-v1.0/data/'+ picture + '_background.png')
     fig, ax = plt.subplots()
     
     for i in range(start, end+1):
@@ -174,9 +182,9 @@ def showBicycles(location, output):
         else:
             suff = str(i)
 
-        recMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
-        trackInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
-        trackMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
+        recMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
+        trackInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
+        trackMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
         
         
 
@@ -196,9 +204,13 @@ def showBicycles(location, output):
             if(vehicle == 'bicycle'):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
 
-    filepath = output+'/bicycle_0'+locid+'.png'
-
-    fig.savefig(filepath)
+    # filepath = output+'/bicycle_0{}.png'.format(location)
+    buf = BytesIO()
+    ax.imshow(img)
+    # fig.savefig(filepath)
+    fig.savefig(buf, format='png')
+    buf.seek(0)
+    return buf.getvalue()
 
 
 def showPedestrian(location, output):
@@ -229,7 +241,7 @@ def showPedestrian(location, output):
         end = 32
 
         
-    img = plt.imread('inD-dataset-v1.0/data/'+ picture + '_background.png')
+    img = plt.imread('./inD-dataset-v1.0/data/'+ picture + '_background.png')
     fig, ax = plt.subplots()
     
     for i in range(start, end+1):
@@ -239,9 +251,9 @@ def showPedestrian(location, output):
         else:
             suff = str(i)
 
-        recMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
-        trackInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
-        trackMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
+        recMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
+        trackInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
+        trackMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
         
         
 
@@ -261,9 +273,13 @@ def showPedestrian(location, output):
             if(vehicle == 'pedestrian'):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
 
-    filepath = output+'/pedestrian_0'+locid+'.png'
-
-    fig.savefig(filepath)
+    # filepath = output+'/pedestrian_0{}.png'.format(location)
+    buf = BytesIO()
+    ax.imshow(img)
+    # fig.savefig(filepath)
+    fig.savefig(buf, format='png')
+    buf.seek(0)
+    return buf.getvalue()
 
 def showBusesOnly(location, output):
     scale = 1
@@ -293,7 +309,7 @@ def showBusesOnly(location, output):
         end = 32
 
         
-    img = plt.imread('inD-dataset-v1.0/data/'+ picture + '_background.png')
+    img = plt.imread('./inD-dataset-v1.0/data/'+ picture + '_background.png')
     fig, ax = plt.subplots()
     
     for i in range(start, end+1):
@@ -303,9 +319,9 @@ def showBusesOnly(location, output):
         else:
             suff = str(i)
 
-        recMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
-        trackInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
-        trackMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
+        recMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
+        trackInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
+        trackMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
          
         numTracks = recMetaInfo['numTracks'].loc[0]
 
@@ -318,9 +334,13 @@ def showBusesOnly(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
                 
 
-    filepath = output+'/buses_0'+locid+'.png'
-
-    fig.savefig(filepath)
+    # filepath = output+'/buses_0{}.png'.format(location)
+    buf = BytesIO()
+    ax.imshow(img)
+    # fig.savefig(filepath)
+    fig.savefig(buf, format='png')
+    buf.seek(0)
+    return buf.getvalue()
 
 def showTrucksOnly(location, output):
     scale = 1
@@ -350,7 +370,7 @@ def showTrucksOnly(location, output):
         end = 32
 
         
-    img = plt.imread('inD-dataset-v1.0/data/'+ picture + '_background.png')
+    img = plt.imread('./inD-dataset-v1.0/data/'+ picture + '_background.png')
     fig, ax = plt.subplots()
     
     for i in range(start, end+1):
@@ -360,9 +380,9 @@ def showTrucksOnly(location, output):
         else:
             suff = str(i)
 
-        recMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
-        trackInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
-        trackMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
+        recMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
+        trackInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
+        trackMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
          
         numTracks = recMetaInfo['numTracks'].loc[0]
 
@@ -375,9 +395,13 @@ def showTrucksOnly(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
                 
 
-    filepath = output+'/trucks_0'+locid+'.png'
-
-    fig.savefig(filepath)
+    # filepath = output+'/trucks_0{}.png'.format(location)
+    buf = BytesIO()
+    ax.imshow(img)
+    # fig.savefig(filepath)
+    fig.savefig(buf, format='png')
+    buf.seek(0)
+    return buf.getvalue()
 
 def showSUV(location, output):
     scale = 1
@@ -407,7 +431,7 @@ def showSUV(location, output):
         end = 32
 
         
-    img = plt.imread('inD-dataset-v1.0/data/'+ picture + '_background.png')
+    img = plt.imread('./inD-dataset-v1.0/data/'+ picture + '_background.png')
     fig, ax = plt.subplots()
     
     for i in range(start, end+1):
@@ -417,9 +441,9 @@ def showSUV(location, output):
         else:
             suff = str(i)
 
-        recMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
-        trackInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
-        trackMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
+        recMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
+        trackInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
+        trackMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
          
         numTracks = recMetaInfo['numTracks'].loc[0]
 
@@ -432,9 +456,13 @@ def showSUV(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
                 
 
-    filepath = output+'/SUVs_0'+locid+'.png'
-
-    fig.savefig(filepath)
+    # filepath = output+'/SUVs_0{}.png'.format(location)
+    buf = BytesIO()
+    ax.imshow(img)
+    # fig.savefig(filepath)
+    fig.savefig(buf, format='png')
+    buf.seek(0)
+    return buf.getvalue()
 
 def showSedan(location, output):
     scale = 1
@@ -464,7 +492,7 @@ def showSedan(location, output):
         end = 32
 
         
-    img = plt.imread('inD-dataset-v1.0/data/'+ picture + '_background.png')
+    img = plt.imread('./inD-dataset-v1.0/data/'+ picture + '_background.png')
     fig, ax = plt.subplots()
     
     for i in range(start, end+1):
@@ -474,9 +502,9 @@ def showSedan(location, output):
         else:
             suff = str(i)
 
-        recMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
-        trackInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
-        trackMetaInfo = pd.read_csv('inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
+        recMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_recordingMeta.csv')
+        trackInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracks.csv')
+        trackMetaInfo = pd.read_csv('./inD-dataset-v1.0/data/'+ suff + '_tracksMeta.csv')
          
         numTracks = recMetaInfo['numTracks'].loc[0]
 
@@ -489,9 +517,13 @@ def showSedan(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
                 
 
-    filepath = output+'/Sedans_0'+locid+'.png'
-
-    fig.savefig(filepath)
+    # filepath = output+'/Sedans_0{}.png'.format(location)
+    buf = BytesIO()
+    ax.imshow(img)
+    # fig.savefig(filepath)
+    fig.savefig(buf, format='png')
+    buf.seek(0)
+    return buf.getvalue()
 
 def run(argv=None, save_main_session=True):
 
@@ -530,8 +562,8 @@ if __name__ == "__main__":
     parameters = run()
 
     locid = parameters[0][1]
-    output = parameters[1][1]
-    vehicle = parameters[2][1]
+    output = parameters[2][1]
+    vehicle = parameters[1][1]
 
     if(vehicle == 'all'):
         showAll(int(locid), output)
