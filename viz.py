@@ -68,10 +68,8 @@ def showAll(location, output):
             ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=1.0)
 
 
-    # filepath = output+'/all_vehicles_0{}.png'.format(location)
     buf = BytesIO()
     ax.imshow(img)
-    # fig.savefig(filepath)
     fig.savefig(buf, format='png')
     buf.seek(0)
     return buf.getvalue()
@@ -125,7 +123,7 @@ def showCars(location, output):
             track = trackInfo.loc[trackInfo['trackId'] == j]
             # print(track.iloc[0]['recordingId'])
             vehicle = trackMetaInfo.iloc[j]['class']
-            col = 'yellow'
+            col = 'blue'
             if(vehicle == 'truck_bus'):
                 col = 'red'
             elif(vehicle == 'bicycle'):
@@ -136,10 +134,8 @@ def showCars(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
 
 
-    # filepath = output+'/cars_0{}.png'.format(location)
     buf = BytesIO()
     ax.imshow(img)
-    # fig.savefig(filepath)
     fig.savefig(buf, format='png')
     buf.seek(0)
     return buf.getvalue()
@@ -204,10 +200,8 @@ def showBicycles(location, output):
             if(vehicle == 'bicycle'):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
 
-    # filepath = output+'/bicycle_0{}.png'.format(location)
     buf = BytesIO()
     ax.imshow(img)
-    # fig.savefig(filepath)
     fig.savefig(buf, format='png')
     buf.seek(0)
     return buf.getvalue()
@@ -273,10 +267,8 @@ def showPedestrian(location, output):
             if(vehicle == 'pedestrian'):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
 
-    # filepath = output+'/pedestrian_0{}.png'.format(location)
     buf = BytesIO()
     ax.imshow(img)
-    # fig.savefig(filepath)
     fig.savefig(buf, format='png')
     buf.seek(0)
     return buf.getvalue()
@@ -334,10 +326,8 @@ def showBusesOnly(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
                 
 
-    # filepath = output+'/buses_0{}.png'.format(location)
     buf = BytesIO()
     ax.imshow(img)
-    # fig.savefig(filepath)
     fig.savefig(buf, format='png')
     buf.seek(0)
     return buf.getvalue()
@@ -395,10 +385,8 @@ def showTrucksOnly(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
                 
 
-    # filepath = output+'/trucks_0{}.png'.format(location)
     buf = BytesIO()
     ax.imshow(img)
-    # fig.savefig(filepath)
     fig.savefig(buf, format='png')
     buf.seek(0)
     return buf.getvalue()
@@ -456,10 +444,8 @@ def showSUV(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
                 
 
-    # filepath = output+'/SUVs_0{}.png'.format(location)
     buf = BytesIO()
     ax.imshow(img)
-    # fig.savefig(filepath)
     fig.savefig(buf, format='png')
     buf.seek(0)
     return buf.getvalue()
@@ -517,10 +503,8 @@ def showSedan(location, output):
                 ax.plot(scale*(track['xCenter']), -scale*(track['yCenter']), color=col, linewidth=0.5)
                 
 
-    # filepath = output+'/Sedans_0{}.png'.format(location)
     buf = BytesIO()
     ax.imshow(img)
-    # fig.savefig(filepath)
     fig.savefig(buf, format='png')
     buf.seek(0)
     return buf.getvalue()
